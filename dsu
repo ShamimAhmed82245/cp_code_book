@@ -11,11 +11,11 @@ using namespace std;
 
 const int N = 1e5+10;
 int parent[N];
-int size[N]; 
+int sz[N]; 
 
-int make(int v){
+void make(int v){
     parent[v] = v;
-    size[v]=1;
+    sz[v]=1;
 }
 
 int find(int v){
@@ -23,16 +23,16 @@ int find(int v){
     return parent[v]=find(parent[v]);//path compression
 }
 
-int Union(int a, int b){
+void Union(int a, int b){
     a=find(a);
     b=find(b);
     if(a!=b){
         //union by size
-        if(size[a]<size[b]){
+        if(sz[a]<sz[b]){
             swap(a,b);
         }
         parent[b]=a;
-        size[a]+=size[b];
+        sz[a]+=sz[b];
     }
 }
 
@@ -41,7 +41,7 @@ int main()
 {
     //fun();
     ios_base::sync_with_stdio(false);cin.tie(0);cout.tie(0);
-    int n,k;
+    int n,k,cnt=0,ans=1;
     cin>>n>>k;
     for (int i = 1; i <=n; ++i)
     {
@@ -55,9 +55,10 @@ int main()
     int connected_ct=0;
     for (int i = 1; i <=n; ++i)
     {
-        if(find(v)==v){
+       if(find(i)==i){
             connected_ct++;
         }
     }
     cout<<connected_ct<<endl;
+   
 }
