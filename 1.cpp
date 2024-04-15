@@ -1,0 +1,59 @@
+//---------------------------//
+//Bismillahir Rahmanir Raheem//
+//---------------------------//
+ 
+ 
+#include<bits/stdc++.h>
+using namespace std;
+
+ 
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+template<class T> using oset = tree<T, null_type, less<T>, rb_tree_tag,tree_order_statistics_node_update>;
+ 
+
+#define  ull unsigned long long
+#define  ll long long int
+#define lld long double
+#define M 1000000007
+const int N=2e5+5;
+const int mod=998244353;
+
+void solve()
+{
+    ll n;
+    cin>>n;
+    vector<vector<ll>> a(n, vector<ll>(2));
+    for (ll i = 0; i < n; ++i)
+    {
+        cin>>a[i][0],cin>>a[i][1];
+    }
+    sort(a.begin(), a.end());
+    oset<ll> st;
+    for (ll i = 0; i < n; ++i)
+    {
+        st.insert(a[i][1]);
+    }
+    ll ans=0;
+    for (ll i = 0; i < n; ++i)
+    {
+        ans+=st.order_of_key(a[i][1]);
+        st.erase(a[i][1]);
+    }
+    cout<<ans<<endl;
+}
+int main()
+{
+    //fun();
+    ios_base::sync_with_stdio(false);cin.tie(0);cout.tie(0);
+    ll t=1;
+    ll cs=1;
+    cin>>t;
+    while(t--)
+    {
+        //cout<<"Case "<<cs<<": ";
+        //cs++;
+        solve();
+    }
+}
