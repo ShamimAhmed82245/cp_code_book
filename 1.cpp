@@ -1,0 +1,79 @@
+//---------------------------//
+//Bismillahir Rahmanir Raheem//
+//---------------------------//
+
+// xor prefix sum
+
+// https://codeforces.com/problemset/problem/1872/E
+ 
+#include<bits/stdc++.h>
+using namespace std;
+
+ 
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+template<class T> using oset = tree<T, null_type, less<T>, rb_tree_tag,tree_order_statistics_node_update>;
+ 
+
+#define  ull unsigned long long
+#define  ll long long int
+#define lld long double
+#define M 1000000007
+const int N=2e5+5;
+const int mod=998244353;
+
+
+void solve()
+{
+
+        ll n;
+        cin >> n;
+        vector<int> a(n); 
+        int xorzero = 0, xorone = 0;
+        vector<int>xorSum(n + 1);
+        for(int i = 0; i < n; i++) {
+            cin >> a[i];
+            xorSum[i + 1] = xorSum[i] ^ a[i];
+        }
+        string s; cin >> s;
+        for(int i = 0; i < n; i++) {
+            if(s[i] == '0') {
+                xorzero ^= a[i];
+            } else {
+                xorone ^= a[i];
+            }
+        }
+        int q; cin >> q;
+        while(q--) {
+            int x; cin >> x;
+            if(x == 2) {
+                int g; cin >> g;
+                if(g == 0) {
+                    cout << xorzero << " ";
+                } else {
+                    cout << xorone << " ";
+                }
+            } else {
+                int l, r; cin >> l >> r;
+                int xorSumLR = xorSum[r] ^ xorSum[l - 1];
+                xorone ^= xorSumLR;
+                xorzero ^= xorSumLR;
+            }
+        }
+        cout << '\n';
+}
+int main()
+{
+    //fun();
+    ios_base::sync_with_stdio(false);cin.tie(0);cout.tie(0);
+    ll t=1;
+    ll cs=1;
+    cin>>t;
+    while(t--)
+    {
+        //cout<<"Case "<<cs<<": ";
+        //cs++;
+        solve();
+    }
+}
