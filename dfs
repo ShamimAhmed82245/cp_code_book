@@ -1,0 +1,78 @@
+//---------------------------//
+// Bismillahir Rahmanir Raheem//
+//---------------------------//
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// #include <ext/pb_ds/assoc_container.hpp>
+// #include <ext/pb_ds/tree_policy.hpp>
+// using namespace __gnu_pbds;
+// template <class T>
+// using oset = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
+#define ff first
+#define ss second
+#define pb push_back
+#define ull unsigned long long
+#define ll long long
+#define lld long long double
+
+const int N = 2e5 + 10, mod = 998244353, MOD = 1e9 + 7;
+const ll inf = 1e18 + 8, INF = LONG_LONG_MAX;
+
+vector<ll> ans;
+vector<ll> g[N];
+bool vis[N];
+ll src;
+
+void dfs(ll vertex)
+{
+    vis[vertex] = true;
+    for (ll child : g[vertex])
+    {
+        if (vis[child])
+            continue;
+        dfs(child);
+    }
+    
+}
+
+void solve()
+{
+    ll n;
+    cin >> n;
+    ll a[n];
+    vector<pair<ll, ll>> v;
+    for (ll i = 0; i < n; ++i)
+    {
+        cin >> a[i];
+        v.push_back({a[i], i + 1});
+    }
+    sort(v.begin(), v.end());
+    src= v[0].second;
+    for (ll i = 0; i < n - 1; ++i)
+    {
+        ll x, y;
+        cin >> x >> y;
+        g[x].push_back(y);
+        g[y].push_back(x);
+    }
+    dfs(src);
+    
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
+    ll t = 1;
+    ll cs = 1;
+    cin >> t;
+    while (t--)
+    {
+        // cout<<"Case "<<cs<<": ";
+        // cs++;
+        solve();
+    }
+    return 0;
+}
