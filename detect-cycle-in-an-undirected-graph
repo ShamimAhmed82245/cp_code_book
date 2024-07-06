@@ -1,0 +1,55 @@
+//https://www.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1
+#include <bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+class Solution {
+  public:
+    bool dfs(int vertex, int par, vector<int> g[], bool vis[]) {
+        vis[vertex] = true;
+        bool loop = false;
+        for (int child : g[vertex]) {
+            if (vis[child] && child == par) continue;
+            if (vis[child]) return true;
+            loop |= dfs(child, vertex, g, vis);
+        }
+        return loop;
+    }
+    bool isCycle(int n, vector<int> g[]) {
+        bool vis[n+5];
+        for (int i = 0; i < n+5; i++) {
+            vis[i] = false;
+        }
+        // If there's a cycle, it's not a valid tree
+        for (int i = 0; i < n; i++) {
+            if (vis[i]) continue; // If there's a node not visited, it's not a connected graph
+            if (dfs(i, -1, g, vis)) return true; 
+        }
+        return false;
+    }
+};
+
+//{ Driver Code Starts.
+int main() {
+    int tc;
+    cin >> tc;
+    while (tc--) {
+        int V, E;
+        cin >> V >> E;
+        vector<int> adj[V];
+        for (int i = 0; i < E; i++) {
+            int u, v;
+            cin >> u >> v;
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+        Solution obj;
+        bool ans = obj.isCycle(V, adj);
+        if (ans)
+            cout << "1\n";
+        else
+            cout << "0\n";
+    }
+    return 0;
+}
+// } Driver Code Ends
